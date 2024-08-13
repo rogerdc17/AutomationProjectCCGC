@@ -1,0 +1,10 @@
+---
+- name: Install packages using host variables
+  hosts: n01659360-c-vm1.canadacentral.cloudapp.azure.com
+  become: yes
+  tasks:
+    - name: Install specified packages
+      dnf:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"

@@ -1,0 +1,39 @@
+---
+- name: Install and configure Apache and MariaDB
+  hosts: n01659360-c-vm2.canadacentral.cloudapp.azure.com
+  become: yes
+  tasks:
+    - name: Install Apache web server
+      yum:
+        name: httpd
+        state: present
+      notify: restart apache
+
+    - name: Install MariaDB server
+      yum:
+        name: mariadb-server
+        state: present
+      notify: restart mariadb
+
+    - name: Ensure Apache service is enabled
+      systemd:
+        name: httpd
+        enabled: yes
+        state: started
+
+    - name: Ensure MariaDB service is enabled
+      systemd:
+        name: mariadb
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: restart apache
+      systemd:
+        name: httpd
+        state: restarted
+
+    - name: restart mariadb
+      systemd:
+        name: mariadb
+        state: restarted

@@ -1,0 +1,24 @@
+---
+# tasks file for profile_mgmt
+- name: Create an empty file called locfile on the automation machine
+  ansible.builtin.file:
+    path: "{{ locfile_path }}"
+    state: touch
+
+- name: Copy locfile to managed nodes under /tmp directory
+  ansible.builtin.copy:
+    src: "{{ locfile_path }}"
+    dest: "{{ locfile_dest }}"
+    owner: "{{ file_owner }}"
+    group: "{{ file_group }}"
+    mode: "{{ file_mode }}"
+    remote_src: yes
+
+- name: Display status of locfile
+  ansible.builtin.stat:
+    path: "{{ locfile_dest }}"
+
+- name: Create an empty file called emptyfile on managed nodes in home directory
+  ansible.builtin.file:
+    path: "{{ emptyfile_path }}"
+    state: touch

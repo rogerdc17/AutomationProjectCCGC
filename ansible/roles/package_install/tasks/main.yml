@@ -1,0 +1,7 @@
+---
+# tasks file for package_install
+- name: Install specified packages
+  ansible.builtin.package:
+    name: "{{ install_packages }}"
+    state: present
+  when: ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "RedHat"

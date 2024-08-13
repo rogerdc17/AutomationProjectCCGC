@@ -1,0 +1,15 @@
+---
+- name: Conditionally update file based on CentOS version and kernel version
+  hosts: linux
+  tasks:
+    - name: Check CentOS version and kernel version
+      set_fact:
+        correct_centos_version: "{{ ansible_distribution == 'CentOS' and ansible_distribution_version == '8.2' }}"
+        correct_kernel_version: "{{ ansible_kernel == '4.18.0-193.el8.x86_64' }}"
+
+    - name: Add string to file if conditions are met
+      blockinfile:
+        path: /tmp/conditional
+        block: "This is my CentOS VM"
+      when: correct_centos_version and correct_kernel_version
+

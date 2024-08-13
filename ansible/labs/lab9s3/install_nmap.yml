@@ -1,0 +1,13 @@
+---
+- name: Conditionally install nmap
+  hosts: n01659360-c-vm1.canadacentral.cloudapp.azure.com
+  become: yes
+  vars:
+    install_nmap: true
+  tasks:
+    - name: Install nmap package
+      dnf:
+        name: nmap
+        state: present
+      when: install_nmap
+

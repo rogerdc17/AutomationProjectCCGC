@@ -1,0 +1,32 @@
+---
+- name: User and Package Setup
+  hosts: linux
+  become: yes
+  tasks:
+    - name: Create user account user4000
+      user:
+        name: user4000
+        uid: 5000
+        state: present
+
+    - name: Create group cloudadmins
+      group:
+        name: cloudadmins
+        gid: 3000
+        state: present
+
+    - name: Install apache
+      dnf:
+        name: httpd
+        state: latest
+
+    - name: Install nmap
+      dnf:
+        name: nmap
+        state: latest
+
+    - name: Ensure httpd is started and enabled
+      systemd:
+        name: httpd
+        state: started
+        enabled: yes

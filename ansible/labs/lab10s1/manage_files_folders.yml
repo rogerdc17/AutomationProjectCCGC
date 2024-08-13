@@ -1,0 +1,36 @@
+---
+- name: Manage files and folders
+  hosts: localhost
+  tasks:
+    - name: Create an empty file called locfile on the automation machine
+      ansible.builtin.file:
+        path: /tmp/locfile
+        state: touch
+
+- name: Manage files and folders on the managed node
+  hosts: n01659360-c-vm1.canadacentral.cloudapp.azure.com
+  become: yes
+  tasks:
+    - name: Copy locfile to the managed nodes under the /tmp directory
+      ansible.builtin.copy:
+        src: /tmp/locfile
+        dest: /tmp/locfile
+        owner: n01659360
+        group: root
+        mode: '0444'
+        remote_src: yes
+
+    - name: Display the status of the /tmp/locfile file
+      ansible.builtin.stat:
+        path: /tmp/locfile
+      register: locfile_stat
+
+    - name: Print the status of /tmp/locfile
+      ansible.builtin.debug:
+        var: locfile_stat
+
+    - name: Create an empty file called emptyfile on the managed nodes in your home directory
+      ansible.builtin.file:
+        path: /home/n01659360/emptyfile
+        state: touch
+

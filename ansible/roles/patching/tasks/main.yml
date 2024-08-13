@@ -1,0 +1,8 @@
+---
+# tasks file for patching
+- name: Update all packages to the latest version
+  ansible.builtin.package:
+    name: "*"
+    state: latest
+  when: ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "RedHat"
+  notify: Reboot system

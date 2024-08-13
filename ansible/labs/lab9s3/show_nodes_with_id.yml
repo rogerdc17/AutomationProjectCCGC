@@ -1,0 +1,8 @@
+---
+- name: Show nodes with specific HumberID
+  hosts: linux
+  tasks:
+    - name: Check if HumberID exists
+      debug:
+        msg: "{{ inventory_hostname }} has HumberID defined"
+      when: ansible_facts['humber_id'] is defined

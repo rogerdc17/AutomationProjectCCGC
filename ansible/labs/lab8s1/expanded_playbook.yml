@@ -1,0 +1,37 @@
+---
+- name: Copy issue file and set permissions
+  hosts: n01659360-c-vm1.canadacentral.cloudapp.azure.com
+  become: yes
+  tasks:
+    - name: Copy /etc/issue file
+      copy:
+        src: /etc/issue
+        dest: /etc/issue
+        owner: user4000
+        group: cloudadmins
+        mode: '0444'
+
+- name: Change timezone
+  hosts: linux
+  become: yes
+  tasks:
+    - name: Set timezone to America/Edmonton
+      timezone:
+        name: America/Edmonton
+
+- name: Setup devops group and user
+  hosts: n01659360-c-vm2.canadacentral.cloudapp.azure.com
+  become: yes
+  tasks:
+    - name: Create devops group
+      group:
+        name: devops
+        state: present
+
+    - name: Create devops1 user with supplementary group
+      user:
+        name: devops1
+        uid: 2500
+        groups: devops
+        append: yes
+        state: present

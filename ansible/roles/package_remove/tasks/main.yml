@@ -1,0 +1,7 @@
+---
+# tasks file for package_remove
+- name: Remove specified packages
+  ansible.builtin.package:
+    name: "{{ remove_packages }}"
+    state: absent
+  when: ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "RedHat"

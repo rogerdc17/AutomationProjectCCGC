@@ -1,0 +1,7 @@
+---
+# vars file for package_remove
+remove_packages:
+  - rsync
+  - ldap-utils
+  - nis
+

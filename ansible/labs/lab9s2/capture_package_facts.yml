@@ -1,0 +1,13 @@
+---
+- name: Capture and display package facts
+  hosts: n01659360-c-vm1.canadacentral.cloudapp.azure.com
+  gather_facts: yes
+  tasks:
+    - name: Gather package facts for 'setup'
+      ansible.builtin.package_facts:
+
+    - name: Display the version of the 'setup' package
+      debug:
+        msg: "Version of 'setup' package: {{ ansible_facts.packages['setup'][0].version }}"
+      when: ansible_facts.packages['setup'] is defined
+

@@ -1,0 +1,8 @@
+---
+# vars file for profile_mgmt
+locfile_path: /tmp/locfile
+locfile_dest: /tmp/locfile
+emptyfile_path: ~/emptyfile
+file_owner: n01659360
+file_group: root
+file_mode: '0444'

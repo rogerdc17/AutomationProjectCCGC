@@ -1,0 +1,6 @@
+---
+# vars file for webserver-n01659360
+web_nodes:
+  - linux-n59360vm1.canadacentral.cloudapp.azure.com
+  - linux-n59360vm2.canadacentral.cloudapp.azure.com
+  - linux-n59360vm3.canadacentral.cloudapp.azure.com

@@ -1,0 +1,16 @@
+---
+- name: Capture and display Ansible facts for Windows
+  hosts: n01659360-w-vm1.canadacentral.cloudapp.azure.com
+  gather_facts: yes
+  tasks:
+    - name: Display all Ansible facts
+      debug:
+        var: ansible_facts
+
+    - name: Display FQDN, IPv4 address, and short hostname
+      debug:
+        msg:
+          - "FQDN: {{ ansible_facts.fqdn }}"
+          - "IPv4 Address: {{ ansible_facts.ip_addresses | select('match', '^10.') | first }}"
+          - "Short Hostname: {{ ansible_facts.hostname }}"
+

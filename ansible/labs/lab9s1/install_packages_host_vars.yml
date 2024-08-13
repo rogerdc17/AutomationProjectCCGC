@@ -1,0 +1,22 @@
+---
+- name: Install packages using host variables
+  hosts: n01659360-c-vm1.canadacentral.cloudapp.azure.com
+  become: yes
+  tasks:
+    - name: Install specified packages
+      dnf:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"
+      register: package_install_output
+
+    - name: Display the entire output of package installation
+      debug:
+        var: package_install_output
+
+    - name: Display names of installed packages
+      debug:
+        msg: "Installed package: {{ item.item }}"
+      when: item.changed
+      loop: "{{ package_install_output.results }}"
+

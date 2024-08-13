@@ -1,0 +1,6 @@
+---
+# handlers file for patching
+- name: Reboot system
+  ansible.builtin.reboot:
+    msg: "Reboot initiated by Ansible for patching"
+    reboot_timeout: 300
